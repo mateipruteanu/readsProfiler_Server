@@ -1,0 +1,95 @@
+<document>
+
+  <book>
+    <title>Dune</title>
+    <author>Frank Herbert</author>
+    <genre>Science Fiction</genre>
+    <ISBN>DUNE123</ISBN>
+  </book>
+
+  <book>
+    <title>1984</title>
+    <author>George Orwell</author>
+    <genre>Science Fiction</genre>
+    <ISBN>1984123</ISBN>
+  </book>
+
+
+  <book>
+    <title>Into the Wild</title>
+    <author>Jon Krakauer</author>
+    <genre>Non Fiction</genre>
+    <ISBN>INTOTHWILD123</ISBN>
+  </book>
+
+  <book>
+    <title>A Tree Grows in Brooklyn</title>
+    <author>Betty Smith</author>
+    <genre>Non Fiction</genre>
+    <ISBN>TREEGROWS123</ISBN>
+  </book>
+
+  <book>
+    <title>The Alchemist</title>
+    <author>Paulo Coelho</author>
+    <genre>Fiction</genre>
+    <ISBN>ALCHEMIST123</ISBN>
+  </book>
+
+  <book>
+    <title>Atomic Habits</title>
+    <author>James Clear</author>
+    <genre>Self Development</genre>
+    <ISBN>ATOMICHABITS123</ISBN>
+  </book>
+
+  <book>
+    <title>Permanent Record</title>
+    <author>Edward Snowden</author>
+    <genre>Non Fiction</genre>
+    <ISBN>PERMANENTRECORD123</ISBN>
+  </book>
+
+  <book>
+    <title>Principles</title>
+    <author>Ray Dalio</author>
+    <genre>Self Development</genre>
+    <ISBN>PRINCIPLES123</ISBN>
+  </book>
+
+  <book>
+    <title>Solenoid</title>
+    <author>Mircea Cartarescu</author>
+    <genre>Fiction</genre>
+    <ISBN>SOLENOID123</ISBN>
+  </book>
+
+  <book>
+    <title>The Godfather</title>
+    <author>Mario Puzo</author>
+    <genre>Fiction</genre>
+    <ISBN>GODFATHER123</ISBN>
+  </book>
+
+  <book>
+    <title>The Psychology of Money</title>
+    <author>Morgan Housel</author>
+    <genre>Self Development</genre>
+    <ISBN>PSYCHOLOGYOFMONEY123</ISBN>
+  </book>
+
+  <book>
+    <title>To Kill a Mockingbird</title>
+    <author>Harper Lee</author>
+    <genre>Fiction</genre>
+    <ISBN>TOKILLAMOCKINGBIRD123</ISBN>
+  </book>
+
+  <book>
+    <title>Twenty Thousand Leagues Under the Sea</title>
+    <author>Jules Verne</author>
+    <genre>Fiction</genre>
+    <ISBN>TWENTYTHOUSANDLEAGUES123</ISBN>
+  </book>
+
+</document>

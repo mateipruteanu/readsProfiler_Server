@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="uuid_id" version="2.0">
+    <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
+        <dc:identifier opf:scheme="calibre" id="calibre_id">11</dc:identifier>
+        <dc:identifier opf:scheme="uuid" id="uuid_id">f2eda707-b06c-4cfe-9dbe-376122712528</dc:identifier>
+        <dc:title>Into the Wild</dc:title>
+        <dc:creator opf:file-as="Krakauer, Jon" opf:role="aut">Jon Krakauer</dc:creator>
+        <dc:contributor opf:file-as="calibre" opf:role="bkp">calibre (5.43.0) [https://calibre-ebook.com]</dc:contributor>
+        <dc:date>1997-01-02T00:00:00+00:00</dc:date>
+        <dc:description>In April 1992 a young man from a well-to-do family hitchhiked to Alaska and walked alone into the wilderness north of Mt. McKinley. His name was Christopher Johnson McCandless. He had given $25,000 in savings to charity, abandoned his car and most of his possessions, burned all the cash in his wallet, and invented a new life for himself. Four months later, his decomposed body was found by a moose hunter. How McCandless came to die is the unforgettable story of Into the Wild.Immediately after graduating from college in 1991, McCandless had roamed through the West and Southwest on a vision quest like those made by his heroes Jack London and John Muir. In the Mojave Desert he abandoned his car, stripped it of its license plates, and burned all of his cash. He would give himself a new name, Alexander Supertramp, and , unencumbered by money and belongings, he would be free to wallow in the raw, unfiltered experiences that nature presented. Craving a blank spot on the map, McCandless simply threw the maps away. Leaving behind his desperate parents and sister, he vanished into the wild.Jon Krakauer constructs a clarifying prism through which he reassembles the disquieting facts of McCandless's short life. Admitting an interst that borders on obsession, he searches for the clues to the dries and desires that propelled McCandless. Digging deeply, he takes an inherently compelling mystery and unravels the larger riddles it holds: the profound pull of the American wilderness on our imagination; the allure of high-risk activities to young men of a certain cast of mind; the complex, charged bond between fathers and sons.When McCandless's innocent mistakes turn out to be irreversible and fatal, he becomes the stuff of tabloid headlines and is dismissed for his naiveté, pretensions, and hubris. He is said to have had a death wish but wanting to die is a very different thing from being compelled to look over the edge. Krakauer brings McCandless's uncompromising pilgrimage out of the shadows, and the peril, adversity , and renunciation sought by this enigmatic young man are illuminated with a rare understanding--and not an ounce of sentimentality. Mesmerizing, heartbreaking, Into the Wild is a tour de force. The power and luminosity of Jon Krakauer's stoytelling blaze through every page.</dc:description>
+        <dc:publisher>Anchor</dc:publisher>
+        <dc:identifier opf:scheme="ISBN">0385486804</dc:identifier>
+        <dc:identifier opf:scheme="MOBI-ASIN">acc6bcb4-bd97-4136-96cd-8c4605089e73</dc:identifier>
+        <dc:language>eng</dc:language>
+        <dc:subject>Autobiography</dc:subject>
+        <meta name="calibre:author_link_map" content="{&quot;Jon Krakauer&quot;: &quot;&quot;}"/>
+        <meta name="calibre:timestamp" content="2022-12-03T15:55:55.762778+00:00"/>
+        <meta name="calibre:title_sort" content="Into the Wild"/>
+    </metadata>
+    <guide>
+        <reference type="cover" title="Cover" href="cover.jpg"/>
+    </guide>
+</package>

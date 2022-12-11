@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="uuid_id" version="2.0">
+    <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
+        <dc:identifier opf:scheme="calibre" id="calibre_id">7</dc:identifier>
+        <dc:identifier opf:scheme="uuid" id="uuid_id">034d8165-37d6-4805-9f4d-0c03f905b671</dc:identifier>
+        <dc:title>The Alchemist</dc:title>
+        <dc:creator opf:file-as="Coelho, Paulo" opf:role="aut">Paulo Coelho</dc:creator>
+        <dc:contributor opf:file-as="calibre" opf:role="bkp">calibre (5.43.0) [https://calibre-ebook.com]</dc:contributor>
+        <dc:date>2015-02-24T00:00:00+00:00</dc:date>
+        <dc:publisher>HarperCollins</dc:publisher>
+        <dc:identifier opf:scheme="MOBI-ASIN">B00U6SFUSS</dc:identifier>
+        <dc:language>eng</dc:language>
+        <dc:subject>Mobilism</dc:subject>
+        <meta name="calibre:author_link_map" content="{&quot;Paulo Coelho&quot;: &quot;&quot;}"/>
+        <meta name="calibre:timestamp" content="2022-12-03T15:55:55.683016+00:00"/>
+        <meta name="calibre:title_sort" content="Alchemist, The"/>
+    </metadata>
+    <guide>
+        <reference type="cover" title="Cover" href="cover.jpg"/>
+    </guide>
+</package>

@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="uuid_id" version="2.0">
+    <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
+        <dc:identifier opf:scheme="calibre" id="calibre_id">10</dc:identifier>
+        <dc:identifier opf:scheme="uuid" id="uuid_id">070eb345-4ff1-4385-869a-9ae500938740</dc:identifier>
+        <dc:title>Permanent Record</dc:title>
+        <dc:creator opf:file-as="Snowden, Edward" opf:role="aut">Edward Snowden</dc:creator>
+        <dc:contributor opf:file-as="calibre" opf:role="bkp">calibre (5.43.0) [https://calibre-ebook.com]</dc:contributor>
+        <dc:date>2019-09-16T22:00:00+00:00</dc:date>
+        <dc:description>&lt;div&gt;&lt;p&gt;&lt;strong&gt;Edward Snowden, the man who risked everything to expose the US government’s system of mass surveillance, reveals for the first time the story of his life, including how he helped to build that system and what motivated him to try to bring it down.&lt;/strong&gt;  &lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;In 2013, twenty-nine-year-old Edward Snowden shocked the world when he broke with the American intelligence establishment and revealed that the United States government was secretly pursuing the means to collect every single phone call, text message, and email. The result would be an unprecedented system of mass surveillance with the ability to pry into the private lives of every person on earth. Six years later, Snowden reveals for the very first time how he helped to build this system and why he was moved to expose it.
+Spanning the bucolic Beltway suburbs of his childhood and the clandestine CIA and NSA postings of his adulthood, &lt;em&gt;Permanent Record&lt;/em&gt; is the extraordinary account of a bright young man who grew up online—a man who became a spy, a whistleblower, and, in exile, the Internet’s conscience. Written with wit, grace, passion, and an unflinching candor, &lt;em&gt;Permanent Record&lt;/em&gt; is a crucial memoir of our digital age and destined to be a classic.
+**&lt;/p&gt;&lt;h3&gt;Review&lt;/h3&gt;
+&lt;p&gt;“A riveting account... Reads like a literary thriller... Without belaboring his points, Snowden pushes the reader to reflect more seriously on what every American should be asking already. What does it mean to have the data of our lives collected and stored on file, ready to be accessed – not just now, by whatever administration happens to be in office at the moment, but potentially forever?”&lt;br&gt;
+ * &lt;strong&gt;―The New York Times&lt;/strong&gt;*&lt;/p&gt;
+&lt;h3&gt;About the Author&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Edward Snowden&lt;/strong&gt; was born in Elizabeth City, North Carolina, and grew up in the shadow of Fort Meade. A systems engineer by training, he served as an officer of the Central Intelligence Agency, and worked as a contractor for the National Security Agency. He has received numerous awards for his public service, including the Right Livelihood Award, the German Whistleblower Prize, the Ridenhour Prize for Truth-Telling, and the Carl von Ossietzky Medal from the International League of Human Rights. Currently, he serves as president of the board of directors of the Freedom of the Press Foundation. &lt;/p&gt;&lt;/div&gt;</dc:description>
+        <dc:publisher>Pan Macmillan</dc:publisher>
+        <dc:identifier opf:scheme="GOOGLE">9aamDwAAQBAJ</dc:identifier>
+        <dc:identifier opf:scheme="ISBN">9781529035674</dc:identifier>
+        <dc:identifier opf:scheme="GOODREADS">46223297</dc:identifier>
+        <dc:identifier opf:scheme="KOBO">permanent-record-7</dc:identifier>
+        <dc:identifier opf:scheme="AMAZON">B07STQPGH6</dc:identifier>
+        <dc:identifier opf:scheme="MOBI-ASIN">B07VWQCK4K</dc:identifier>
+        <dc:language>eng</dc:language>
+        <dc:subject>Biography</dc:subject>
+        <dc:subject>Politics</dc:subject>
+        <meta name="calibre:author_link_map" content="{&quot;Edward Snowden&quot;: &quot;&quot;}"/>
+        <meta name="calibre:rating" content="8"/>
+        <meta name="calibre:timestamp" content="2022-12-03T15:55:55.740185+00:00"/>
+        <meta name="calibre:title_sort" content="Permanent Record"/>
+    </metadata>
+    <guide>
+        <reference type="cover" title="Cover" href="cover.jpg"/>
+    </guide>
+</package>

@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="uuid_id" version="2.0">
+    <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
+        <dc:identifier opf:scheme="calibre" id="calibre_id">4</dc:identifier>
+        <dc:identifier opf:scheme="uuid" id="uuid_id">4b1a3b1f-7dd8-4092-9c72-bdf2f01f9b51</dc:identifier>
+        <dc:title>Dune</dc:title>
+        <dc:creator opf:file-as="Herbert, Frank" opf:role="aut">Frank Herbert</dc:creator>
+        <dc:contributor opf:file-as="calibre" opf:role="bkp">calibre (5.43.0) [https://calibre-ebook.com]</dc:contributor>
+        <dc:date>2013-12-08T22:00:00+00:00</dc:date>
+        <dc:description>&lt;p&gt;&lt;p&gt;„Cel mai important roman SF din toate timpurile. Este convingător, puternic, genial.“ – Robert A. Heinlein&lt;/p&gt;&lt;p&gt;„Un unicat în literatura Science Fiction… Nu se compară cu nimic, poate numai cu Stăpânul inelelor.“ – Arthur C. Clarke&lt;/p&gt;&lt;p&gt;„În străfundul inconștientului său, omul are întipărită nevoia de a descifra universul în termenii logicii. Numai că universul real este întotdeauna cu un pas înaintea logicii.“ – Frank Herbert&lt;/p&gt;&lt;p&gt;Triumf suprem al imaginației, acțiunea romanului cu care se deschide seria Dune, vândută în milioane de exemplare în lumea întreagă, se desfășoară pe planeta Arrakis, unde Paul Atreides se va transforma în misteriosul Muad’Dib. Eroul se va răzbuna pe cei care i-au trădat familia și va împlini cel mai vechi și cel mai arzător vis al omenirii.&lt;/p&gt;&lt;p&gt;Combinație uimitoare de aventură, spirit mistic și forță vizionară, prima carte din cea mai importantă serie din literatura SF este o lectură obligatorie pentru cititorii de toate vârstele.</dc:description>
+        <dc:publisher>Nemira</dc:publisher>
+        <dc:identifier opf:scheme="ISBN">978-606-579-564-8</dc:identifier>
+        <dc:language>ron</dc:language>
+        <meta name="calibre:author_link_map" content="{&quot;Frank Herbert&quot;: &quot;&quot;}"/>
+        <meta name="calibre:timestamp" content="2022-12-03T15:55:55.623896+00:00"/>
+        <meta name="calibre:title_sort" content="Dune"/>
+    </metadata>
+    <guide>
+        <reference type="cover" title="Cover" href="cover.jpg"/>
+    </guide>
+</package>

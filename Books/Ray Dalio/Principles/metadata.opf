@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="uuid_id" version="2.0">
+    <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
+        <dc:identifier opf:scheme="calibre" id="calibre_id">9</dc:identifier>
+        <dc:identifier opf:scheme="uuid" id="uuid_id">830e87e6-fc28-4078-9459-a25c118e4539</dc:identifier>
+        <dc:title>Principles</dc:title>
+        <dc:creator opf:file-as="Dalio, Ray" opf:role="aut">Dalio, Ray</dc:creator>
+        <dc:contributor opf:file-as="calibre" opf:role="bkp">calibre (5.43.0) [https://calibre-ebook.com]</dc:contributor>
+        <dc:date>2017-09-18T21:00:00+00:00</dc:date>
+        <dc:publisher>Simon &amp; Schuster</dc:publisher>
+        <dc:language>eng</dc:language>
+        <meta name="calibre:author_link_map" content="{&quot;Dalio, Ray&quot;: &quot;&quot;}"/>
+        <meta name="calibre:timestamp" content="2022-12-03T15:55:55.715107+00:00"/>
+        <meta name="calibre:title_sort" content="Principles"/>
+    </metadata>
+    <guide>
+        <reference type="cover" title="Cover" href="cover.jpg"/>
+    </guide>
+</package>

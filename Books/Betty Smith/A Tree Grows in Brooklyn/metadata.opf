@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='utf-8'?>
+<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="uuid_id" version="2.0">
+    <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
+        <dc:identifier opf:scheme="calibre" id="calibre_id">1</dc:identifier>
+        <dc:identifier opf:scheme="uuid" id="uuid_id">e7aebef0-b6d2-443e-b000-bb87b8195f8b</dc:identifier>
+        <dc:title>A Tree Grows in Brooklyn</dc:title>
+        <dc:creator opf:file-as="Smith, Betty" opf:role="aut">Betty Smith</dc:creator>
+        <dc:contributor opf:file-as="calibre" opf:role="bkp">calibre (5.43.0) [https://calibre-ebook.com]</dc:contributor>
+        <dc:date>0101-01-01T00:00:00+00:00</dc:date>
+        <dc:description>&lt;p&gt;The American classic about a young girl's coming-of-age at the turn of the century.&lt;/p&gt;This P.S. edition features an extra 16 pages of insights into the book, including author interviews, recommended reading, and more.</dc:description>
+        <dc:publisher>HarperCollins</dc:publisher>
+        <dc:language>eng</dc:language>
+        <meta name="calibre:author_link_map" content="{&quot;Betty Smith&quot;: &quot;&quot;}"/>
+        <meta name="calibre:timestamp" content="2022-12-03T15:55:55.437444+00:00"/>
+        <meta name="calibre:title_sort" content="Tree Grows in Brooklyn, A"/>
+    </metadata>
+    <guide>
+        <reference type="cover" title="Cover" href="cover.jpg"/>
+    </guide>
+</package>

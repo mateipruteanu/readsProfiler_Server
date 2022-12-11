@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="uuid_id" version="2.0">
+    <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
+        <dc:identifier opf:scheme="calibre" id="calibre_id">8</dc:identifier>
+        <dc:identifier opf:scheme="uuid" id="uuid_id">d8526cd3-1f0a-4f9c-8a02-b96985781f61</dc:identifier>
+        <dc:title>To Kill A Mockingbird</dc:title>
+        <dc:creator opf:file-as="Lee, Harper" opf:role="aut">Harper Lee</dc:creator>
+        <dc:contributor opf:file-as="calibre" opf:role="bkp">calibre (5.43.0) [https://calibre-ebook.com]</dc:contributor>
+        <dc:date>2011-09-30T01:25:38+00:00</dc:date>
+        <dc:description>&lt;div&gt;&lt;p class="description"&gt;"Shoot all the bluejays you want, if you can hit 'em, but remember it's a sin to kill a mockingbird." &lt;/p&gt; &lt;p class="description"&gt;A lawyer's advice to his children as he defends the real mockingbird of Harper Lee's classic novel—a black man charged with the rape of a white girl. Through the young eyes of Scout and Jem Finch, Harper Lee explores with rich humor and unswerving honesty the irrationality of adult attitudes toward race and class in the Deep South of the 1930s. The conscience of a town steeped in prejudice, violence, and hypocrisy is pricked by the stamina and quiet heroism of one man's struggle for justice—but the weight of history will only tolerate so much. &lt;/p&gt; &lt;p class="description"&gt;One of the best-loved classics of all time, To Kill a Mockingbird has earned many dis-tinctions since its original publication in 1960. It has won the Pulitzer Prize, been translated into more than forty languages, sold more than forty million copies worldwide, and been made into an enormously popular movie. It was also named the best novel of the twentieth century by librarians across the country (Library Journal). HarperCollins is proud to celebrate the fiftieth anniversary of the book's publication with this special hardcover edition.&lt;/p&gt;&lt;/div&gt;</dc:description>
+        <dc:publisher>HarperCollins</dc:publisher>
+        <dc:identifier opf:scheme="MOBI-ASIN">3eb68424-7233-40cc-8efc-250dbe759fa9</dc:identifier>
+        <dc:language>eng</dc:language>
+        <meta name="calibre:author_link_map" content="{&quot;Harper Lee&quot;: &quot;&quot;}"/>
+        <meta name="calibre:timestamp" content="2022-12-03T15:55:55.698624+00:00"/>
+        <meta name="calibre:title_sort" content="To Kill A Mockingbird"/>
+    </metadata>
+    <guide>
+        <reference type="cover" title="Cover" href="cover.jpg"/>
+    </guide>
+</package>

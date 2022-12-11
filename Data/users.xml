@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+	<user>
+		<username>bob</username>
+		<password>bob123</password>
+		<num_genres>0</num_genres>
+		<num_authors>0</num_authors>
+		<prefered_genres>
+		</prefered_genres>
+		<prefered_authors>
+		</prefered_authors>
+	</user>
+
+	<user>
+		<username>alice</username>
+		<password>alice123</password>
+		<num_genres>0</num_genres>
+		<num_authors>0</num_authors>
+		<prefered_genres>
+		</prefered_genres>
+		<prefered_authors>
+		</prefered_authors>
+	</user>
+
+	<user>
+		<username>mateipruteanu</username>
+		<password>parola123</password>
+		<num_genres>2</num_genres>
+		<num_authors>4</num_authors>
+		<prefered_genres>
+			<genre>Science Fiction</genre>
+			<level>2</level>
+			<genre>Fiction</genre>
+			<level>5</level>
+		</prefered_genres>
+		<prefered_authors>
+			<author>Frank Herbert</author>
+			<level>2</level>
+			<author>Harper Lee</author>
+			<level>2</level>
+			<author>Mario Puzo</author>
+			<level>1</level>
+			<author>Paulo Coelho</author>
+			<level>1</level>
+		</prefered_authors>
+	</user>
+
+	<user>
+		<username>testUser</username>
+		<password>pass</password>
+		<num_genres>1</num_genres>
+		<num_authors>2</num_authors>
+		<prefered_genres>
+			<genre>Fiction</genre>
+			<level>2</level>
+		</prefered_genres>
+		<prefered_authors>
+			<author>Mircea Cartarescu</author>
+			<level>1</level>
+			<author>Paulo Coelho</author>
+			<level>1</level>
+		</prefered_authors>
+	</user>
+
+</document>
