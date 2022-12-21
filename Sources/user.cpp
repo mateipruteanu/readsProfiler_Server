@@ -16,81 +16,33 @@ user::user() {
   strcpy(password, "NULL");
   numPreferedAuthors = 0;
   numPreferedGenres = 0;
+  numReadBooks = 0;
   for(int i = 0; i < MAX_SIZE; i++) {
     strcpy(genreArray[i].genre, "NULL");
     genreArray[i].level = 0;
     strcpy(authorArray[i].author, "NULL");
     authorArray[i].level = 0;
+    strcpy(readBooksArray[i].ISBN, "NULL");
   }
 }
 
 user::user(char u[], char p[], int nA, int nG, struct genrePreference g[], struct authorPreference a[]) {
-  strcpy(username, u);
-  strcpy(password, p);
+  strlcpy(username, u, MAX_SIZE);
+  strlcpy(password, p, MAX_SIZE);
   numPreferedAuthors = nA;
   numPreferedGenres = nG;
+  numReadBooks = 0;
   for(int i = 0; i < MAX_SIZE; i++) {
-    strcpy(genreArray[i].genre, g[i].genre);
+    strlcpy(genreArray[i].genre, g[i].genre, MAX_SIZE);
     genreArray[i].level = g[i].level;
-    strcpy(authorArray[i].author, a[i].author);
+    strlcpy(authorArray[i].author, a[i].author, MAX_SIZE);
     authorArray[i].level = a[i].level;
+    strlcpy(readBooksArray[i].ISBN, "NULL", MAX_SIZE);
   }
 }
 
-/*
-void user::loadUserFromXML(FILE *fp) {
-  char *line = NULL;
-  size_t len = 0;
-  ssize_t read;
-  char *token;
-  rewind(fp);
-  
-  // read though the whole file and find the user with the username this->username
-  while ((read = getline(&line, &len, fp)) != -1) {
-    if (strstr(line, this->username) != NULL) {
-      // found the user
-      
-      // read the password
-      getline(&line, &len, fp);
-      token = strtok(line, ">");
-      token = strtok(NULL, "<");
-      this->setPassword(token);
-
-      // read the number of preferences
-      getline(&line, &len, fp);
-      token = strtok(line, ">");
-      token = strtok(NULL, "<");
-      this->setNumPreferences(atoi(token));
-      // read the preferences
-      for (int i = 0; i < this->num_preferences; i++) {
-        // beginning of
-        getline(&line, &len, fp);
-        token = strtok(line, ">");
-        getline(&line, &len, fp);
-
-        // genre
-        token = strtok(line, ">");
-        token = strtok(NULL, "<");
-        strcpy(this->preferenceArray[i].genre, token);
-
-        // level
-        getline(&line, &len, fp);
-        token = strtok(line, ">");
-        token = strtok(NULL, "<");
-        this->setPreference(i, this->preferenceArray[i].genre, atoi(token));
-        // end of the preference
-        getline(&line, &len, fp);
-        token = strtok(NULL, "<");
-      } // for
-      break;
-    } // if
-    getline(&line, &len, fp);
-    token = strtok(line, ">");
-  } // while
-}
-*/
-
 void user::loadArrayfromXML(FILE *fp, user users[], int &num_users) {
+  cout<<"LOADING USERS FROM XML\n";
   char *line = new char[10001];
   size_t len = 0;
   ssize_t read;
@@ -111,13 +63,13 @@ void user::loadArrayfromXML(FILE *fp, user users[], int &num_users) {
     if (strstr(line, "<username>") != NULL) {
       token = strtok(line, ">");
       token = strtok(NULL, "<");
-      strcpy(users[i].username, token);
+      strlcpy(users[i].username, token, MAX_SIZE);
     }
     // get the password
     if (strstr(line, "<password>") != NULL) {
       token = strtok(line, ">");
       token = strtok(NULL, "<");
-      strcpy(users[i].password, token);
+      strlcpy(users[i].password, token, MAX_SIZE);
     }
     // get the number of genres
     if (strstr(line, "<num_genres>") != NULL) {
@@ -132,6 +84,13 @@ void user::loadArrayfromXML(FILE *fp, user users[], int &num_users) {
       users[i].numPreferedAuthors = atoi(token);
     }
 
+    // get the number of read books
+    if (strstr(line, "<num_read_books>") != NULL) {
+      token = strtok(line, ">");
+      token = strtok(NULL, "<");
+      users[i].numReadBooks = atoi(token);
+    }
+
     // get the genres
     if (strstr(line, "<prefered_genres>") != NULL) {
       for (int j = 0; j < users[i].numPreferedGenres; j++) {
@@ -140,7 +99,7 @@ void user::loadArrayfromXML(FILE *fp, user users[], int &num_users) {
         if (strstr(line, "<genre>") != NULL) {
           token = strtok(line, ">");
           token = strtok(NULL, "<");
-          strcpy(users[i].genreArray[j].genre, token);
+          strlcpy(users[i].genreArray[j].genre, token, MAX_SIZE);
         }
         read = getline(&line, &len, fp);
         // get the level
@@ -160,7 +119,7 @@ void user::loadArrayfromXML(FILE *fp, user users[], int &num_users) {
         if (strstr(line, "<author>") != NULL) {
           token = strtok(line, ">");
           token = strtok(NULL, "<");
-          strcpy(users[i].authorArray[j].author, token);
+          strlcpy(users[i].authorArray[j].author, token, MAX_SIZE);
         }
         read = getline(&line, &len, fp);
         // get the level
@@ -172,12 +131,26 @@ void user::loadArrayfromXML(FILE *fp, user users[], int &num_users) {
       } // for
     } // if
 
+    // get the read books
+    if(strstr(line, "<read_books>") != NULL) {
+      for (int j = 0; j < users[i].numReadBooks; j++) {
+        // get the ISBN of the read book
+        read = getline(&line, &len, fp);
+        if (strstr(line, "<ISBN>") != NULL) {
+          token = strtok(line, ">");
+          token = strtok(NULL, "<");
+          strlcpy(users[i].readBooksArray[j].ISBN, token, MAX_SIZE);
+        }
+      } // for
+    } // if
+
     if (strstr(line, "</user>") != NULL) {
       i++;
     } // if
   } // while
-
+  delete[] token;
   num_users = i;
+  cout<<num_users<<" users loaded from XML"<<endl;
 }
 
 
@@ -193,6 +166,7 @@ void user::writeArraytoXML(FILE *fp, user users[], int num_users) {
     fprintf(fp, "\t\t<password>%s</password>\n", users[i].password);
     fprintf(fp, "\t\t<num_genres>%d</num_genres>\n", users[i].numPreferedGenres);
     fprintf(fp, "\t\t<num_authors>%d</num_authors>\n", users[i].numPreferedAuthors);
+    fprintf(fp, "\t\t<num_read_books>%d</num_read_books>\n", users[i].numReadBooks);
     fprintf(fp, "\t\t<prefered_genres>\n");
     for (int j = 0; j < users[i].numPreferedGenres; j++) {
       fprintf(fp, "\t\t\t<genre>%s</genre>\n", users[i].genreArray[j].genre);
@@ -205,6 +179,11 @@ void user::writeArraytoXML(FILE *fp, user users[], int num_users) {
       fprintf(fp, "\t\t\t<level>%d</level>\n", users[i].authorArray[j].level);
     }
     fprintf(fp, "\t\t</prefered_authors>\n");
+    fprintf(fp, "\t\t<read_books>\n");
+    for (int j = 0; j < users[i].numReadBooks; j++) {
+      fprintf(fp, "\t\t\t<ISBN>%s</ISBN>\n", users[i].readBooksArray[j].ISBN);
+    }
+    fprintf(fp, "\t\t</read_books>\n");
     fprintf(fp, "\t</user>\n\n");
   }
   fprintf(fp, "</document>\n");
@@ -223,6 +202,10 @@ void user::printUser() {
   cout << "Number of authors: " << numPreferedAuthors << endl;
   for (int i = 0; i < numPreferedAuthors; i++) {
     cout << "Author " << i+1 << ": " << authorArray[i].author << " " << authorArray[i].level << endl;
+  }
+  cout << "Number of read books: " << numReadBooks << endl;
+  for (int i = 0; i < numReadBooks; i++) {
+    cout << "Read book " << i+1 << ": " << readBooksArray[i].ISBN << endl;
   }
   cout<<"---------------\n";
 }
@@ -254,6 +237,25 @@ void user::addPreference(char g[], char a[]) {
   }
 }
 
+bool user::bookAlreadyRead(char ISBN[]) {
+  bool bookAlreadyExists = false;
+  for(int i = 0; i < numReadBooks; i++) {
+    if(!strcmp(ISBN, readBooksArray[i].ISBN)) {
+      cout<<"Book already exists"<<endl;
+      bookAlreadyExists = true;
+    }
+  }
+  return bookAlreadyExists;
+}
+
+void user::addReadBook(char ISBN[]) {
+  if(bookAlreadyRead(ISBN) == false) {
+    strlcpy(readBooksArray[numReadBooks].ISBN, ISBN, MAX_SIZE);
+    numReadBooks++;
+  }
+}
+
+
 int user::getPreferedGenre() {
   int maxLevel = -1;
   int maxIndex = -1;
@@ -278,8 +280,12 @@ int user::getPreferedAuthor() {
   return maxIndex;
 }
 
-bool user::createAccount(char username[], char password[], int &num_users, user users[]){
+int user::createAccount(char username[], char password[], int &num_users, user users[]){
   if(num_users < MAX_SIZE) {
+    for(int i = 0; i < num_users; i++) {
+      if(!strcasecmp(username, users[i].getUsername()))
+        return -1; /// username already exists
+    }
     num_users++;
     cout<<"user: "<<username<<endl;
     cout<<"password: "<<password<<endl;
@@ -289,9 +295,10 @@ bool user::createAccount(char username[], char password[], int &num_users, user 
     cout<<"user_password: "<<users[num_users-1].getPassword()<<endl;
     users[num_users-1].setNumAuthors(0);
     users[num_users-1].setNumGenres(0);
-    return true;
+    users[num_users-1].setNumReadBooks(0);
+    return 1; /// account created
   }
   else {
-    return false;
+    return 0; /// max limit of users
   }
 }

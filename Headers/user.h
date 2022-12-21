@@ -10,6 +10,7 @@ class user {
     char password[MAX_SIZE];
     int numPreferedGenres;
     int numPreferedAuthors;
+    int numReadBooks;
     struct genrePreference {
       char genre[MAX_SIZE];
       int level;
@@ -18,11 +19,14 @@ class user {
       char author[MAX_SIZE];
       int level;
     } authorArray[MAX_SIZE];
+    struct readBooks {
+      char ISBN[MAX_SIZE];
+    } readBooksArray[MAX_SIZE];
   public:
     user();
     user(char u[], char p[], int nG, int nA, struct genrePreference g[], struct authorPreference a[]);
 
-    static bool createAccount(char username[], char password[], int &num_users, user users[]);
+    static int createAccount(char username[], char password[], int &num_users, user users[]);
 
     char *getUsername() {return username;}
     char *getPassword() {return password;}
@@ -37,6 +41,7 @@ class user {
     void setPassword(char p[]) {strlcpy(password, p, MAX_SIZE);}
     void setNumGenres(int n) {numPreferedGenres = n;}
     void setNumAuthors(int n) {numPreferedAuthors = n;}
+    void setNumReadBooks(int n) {numReadBooks = n;}
     void setGenrePreference(int i, char g[], int l) {
       strlcpy(genreArray[i].genre, g, MAX_SIZE);
       genreArray[i].level = l;
@@ -47,10 +52,11 @@ class user {
       strlcpy(authorArray[i].author, a, MAX_SIZE);
       authorArray[i].level = l;
     }
+    bool bookAlreadyRead(char ISBN[]);
     void setAuthor(int i, char a[]) {strlcpy(authorArray[i].author, a, MAX_SIZE);}
     void setAuthorLevel(int i, int l) {authorArray[i].level = l;}
     void addPreference(char g[], char a[]);
-    // void loadUserFromXML(FILE *fp);
+    void addReadBook(char ISBN[]);
 
     static void loadArrayfromXML(FILE *fp, user users[], int &num_users);
 

@@ -18,15 +18,15 @@ using std::cin;
 using std::max;
 
 book::book() {
-  strcpy(title, "NULL");
-  strcpy(author, "NULL");
-  strcpy(ISBN, "NULL");
+  strlcpy(title, "NULL", MAX_SIZE);
+  strlcpy(author, "NULL", MAX_SIZE);
+  strlcpy(ISBN, "NULL", MAX_SIZE);
 };
 
 book::book(char t[], char a[], char i[]) {
-  strcpy(title, t);
-  strcpy(author, a);
-  strcpy(ISBN, i);
+  strlcpy(title, t, MAX_SIZE);
+  strlcpy(author, a, MAX_SIZE);
+  strlcpy(ISBN, i, MAX_SIZE);
 }
 
 bool book::loadBookFromXML(FILE *fp) {
@@ -43,25 +43,25 @@ bool book::loadBookFromXML(FILE *fp) {
       found = true;
       // read the author
       getline(&line, &len, fp);
-      //cout<<"line: "<<line<<endl;
       token = strtok(line, ">");
       token = strtok(NULL, "<");
       this->setAuthor(token);
-      //cout<<"author: "<<token<<endl;
+
       // read the genre
       getline(&line, &len, fp);
       token = strtok(line, ">");
       token = strtok(NULL, "<");
-      //cout<<"genre: "<<token<<endl;
       this->setGenre(token);
+
       // read the ISBN
       getline(&line, &len, fp);
       token = strtok(line, ">");
       token = strtok(NULL, "<");
-      //cout<<"ISBN: "<<token<<endl;
       this->setISBN(token);
+
       break;
     } // if
+
     getline(&line, &len, fp);
     token = strtok(line, ">");
   } // while
@@ -86,25 +86,25 @@ void book::loadBooksfromXML(FILE *fp, book bookArray[], int &num_books) {
     if (strstr(line, "<title>") != NULL) {
       token = strtok(line, ">");
       token = strtok(NULL, "<");
-      strcpy(bookArray[i].title, token);
+      strlcpy(bookArray[i].title, token, MAX_SIZE);
     }
     // get the author
     if (strstr(line, "<author>") != NULL) {
       token = strtok(line, ">");
       token = strtok(NULL, "<");
-      strcpy(bookArray[i].author, token);
+      strlcpy(bookArray[i].author, token, MAX_SIZE);
     }
     // get the genre
     if (strstr(line, "<genre>") != NULL) {
       token = strtok(line, ">");
       token = strtok(NULL, "<");
-      strcpy(bookArray[i].genre, token);
+      strlcpy(bookArray[i].genre, token, MAX_SIZE);
     }
     // get the ISBN
     if (strstr(line, "<ISBN>") != NULL) {
       token = strtok(line, ">");
       token = strtok(NULL, "<");
-      strcpy(bookArray[i].ISBN, token);
+      strlcpy(bookArray[i].ISBN, token, MAX_SIZE);
     }
     if (strstr(line, "</book>") != NULL) {
       i++;
@@ -113,7 +113,6 @@ void book::loadBooksfromXML(FILE *fp, book bookArray[], int &num_books) {
 
   num_books = i;
 }
-
 
 int longestCommonSequence(char X[], char Y[]) {
     // https://en.wikipedia.org/wiki/Longest_common_subsequence_problem

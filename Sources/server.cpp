@@ -45,9 +45,11 @@ FILE *usersFP;
 int num_books = 0;
 book books[MAX_SIZE];
 
+pthread_mutex_t fileLock = PTHREAD_MUTEX_INITIALIZER;
+
 int serverInit(int &sd, struct sockaddr_in &clientInfo);
 void serveClients(int sd, struct sockaddr_in &clientInfo);
-bool authenticate(char *username, char *password);
+bool authenticate(char *username, char *password, int &clientId);
 bool login(void *, int &clientId);
 void processThread(void *, bool &LOGGED_IN, int &clientId);
 static void *treatClient(void *); /* function executed by every thread */
@@ -194,20 +196,26 @@ void processThread(void *arg, bool &LOGGED_IN, int &clientId) {
       else if(!strcmp(receivedMessage, "book_download")) {
         char fileName[MAX_SIZE] = "";
         strcpy(fileName, "../../../");
-        strcat(fileName, b.getTitle());
-        strcat(fileName, " - ");
-        strcat(fileName, b.getAuthor());
-        strcat(fileName, ".mobi");
+        strlcat(fileName, b.getTitle(), MAX_SIZE);
+        strlcat(fileName, " - ", MAX_SIZE);
+        strlcat(fileName, b.getAuthor(), MAX_SIZE);
+        strlcat(fileName, ".mobi", MAX_SIZE);
         cout<<"FILE NAME :\""<<fileName<<"\""<<endl;
         respondThread((struct thData*)arg, fileName); // filename
         sendBook(tdL.cl, b);
         cout<<"BOOK SENT\n";
-        users[clientId].addPreference(b.getGenre(), b.getAuthor());
+        if(users[clientId].bookAlreadyRead(b.getISBN()) == false) {
+          users[clientId].addReadBook(b.getISBN());
+          users[clientId].addPreference(b.getGenre(), b.getAuthor());
+        }
+        cout<<b.getISBN()<<" added to read books\n";
         users[clientId].printUser();
 
+        pthread_mutex_lock(&fileLock); // locking the file
         FILE *tempUsersFP = fopen(TEMP_USERS_FILE_PATH, "w");
         user::writeArraytoXML(tempUsersFP, users, num_users);
         fclose(tempUsersFP);
+        pthread_mutex_unlock(&fileLock); // unlocking the file
         cout<<"num_users= "<<num_users<<endl;
       }
       else if(!strcmp(receivedMessage, "book_recommend")) {
@@ -218,9 +226,7 @@ void processThread(void *arg, bool &LOGGED_IN, int &clientId) {
       else if(!strcmp(receivedMessage, "logout")) {
         LOGGED_IN = false;
         cout<<"Logged_out\n";
-      }
-      else {
-        respondThread((struct thData*)arg, "LOGGED_IN");
+        respondThread((struct thData*)arg, "[server]logged_out");
       }
     }
     else {
@@ -232,15 +238,22 @@ void processThread(void *arg, bool &LOGGED_IN, int &clientId) {
         char password[MAX_SIZE] = "";
         strlcpy(username, readThread((struct thData*)arg), MAX_SIZE);
         strlcpy(password, readThread((struct thData*)arg), MAX_SIZE);
-        if(user::createAccount(username, password, num_users, users)) {
-          FILE *tempUsersFP = fopen(TEMP_USERS_FILE_PATH, "w+");
-          users[num_users-1].printUser();
-          user::writeArraytoXML(tempUsersFP, users, num_users);
-          fclose(tempUsersFP);
-          respondThread((struct thData*)arg, "created_account");
-        }
-        else {
-          respondThread((struct thData*)arg, "account_not_created");
+        FILE *tempUsersFP;
+        switch(user::createAccount(username, password, num_users, users)) {
+          case 1: // account created
+            pthread_mutex_lock(&fileLock); // locking the file
+            tempUsersFP = fopen(TEMP_USERS_FILE_PATH, "w+");
+            users[num_users-1].printUser();
+            user::writeArraytoXML(tempUsersFP, users, num_users);
+            fclose(tempUsersFP);
+            pthread_mutex_unlock(&fileLock); // unlocking the file
+            respondThread((struct thData*)arg, "created_account");
+            break;
+          case -1: // username already exists
+            respondThread((struct thData*)arg, "account_already_exists");
+            break;
+          default: // account not created
+            respondThread((struct thData*)arg, "account_not_created");
         }
       }
       else {
@@ -255,7 +268,7 @@ void processThread(void *arg, bool &LOGGED_IN, int &clientId) {
 
 bool authenticate(char *username, char *password, int &clientId) {
   clientId = -1;
-  cout<<"[authenticate]"<<username<<" "<<password<<num_users<<endl;
+  cout<<"[authenticate]"<<username<<" "<<password<<endl;
   if(!strcasecmp(username, "") || !strcasecmp(password, ""))
     return false;
 
@@ -264,7 +277,7 @@ bool authenticate(char *username, char *password, int &clientId) {
       clientId = i;
       return true;
     }
-    cout<<"\n\nCOMPARA: ------ "<<users[i].getPassword()<<" "<<password<<endl;
+    cout<<"\n\nComparing: ------ "<<users[i].getPassword()<<" "<<password<<endl;
   }
   
   return false;
@@ -278,11 +291,11 @@ bool login(void *arg, int &clientId) {
   tdL= *((struct thData*)arg);	
   // respondThread((struct thData*)arg, "try");
 
-  strcpy(username, readThread((struct thData*)arg)); /// getUsername
+  strlcpy(username, readThread((struct thData*)arg), MAX_SIZE); /// getUsername
   respondThread((struct thData*)arg, username);      /// sendUsername
   cout<<"READ USERNAME "<<username<<endl;
 
-  strcpy(password, readThread((struct thData*)arg)); /// getPassword
+  strlcpy(password, readThread((struct thData*)arg), MAX_SIZE); /// getPassword
   respondThread((struct thData*)arg, password);      /// sendPassword
   cout<<"READ PASSWORD "<<password<<endl;
   
@@ -339,38 +352,48 @@ void recommendBook(void *arg, int clientId) {
   char preferedGenre[MAX_SIZE] = "";
   char preferedAuthor[MAX_SIZE] = "";
 
-  strcpy(preferedGenre, users[clientId].getGenre(preferedGenreID));
-  strcpy(preferedAuthor, users[clientId].getAuthor(preferedAuthorID));
+  strlcpy(preferedGenre, users[clientId].getGenre(preferedGenreID), MAX_SIZE);
+  strlcpy(preferedAuthor, users[clientId].getAuthor(preferedAuthorID), MAX_SIZE);
   cout<<"PREFERED GENRE: "<<preferedGenre<<endl;
   cout<<"PREFERED AUTHOR: "<<preferedAuthor<<endl;
 
   /// preferably getting a book from the prefered genre and author, but if there are no such matches, getting a random book from the prefered genre
 
   for(int i = 0; i < num_books; i++) {
-    if(!strcmp(books[i].getGenre(), preferedGenre) && 
-      !strcmp(books[i].getAuthor(),preferedAuthor)) {
+    if(!strcmp(books[i].getGenre(), preferedGenre)
+      && !strcmp(books[i].getAuthor(),preferedAuthor)
+      && users[clientId].bookAlreadyRead(books[i].getISBN()) == false) {
         possibleRecommendations[nMatchingBooks++] = books[i];
         bestMatch = true;
         cout<<"Best match\n";
+        
     }
   }
 
   if(bestMatch == false) {
     for(int i = 0; i < num_books; i++) {
-      if(!strcmp(books[i].getGenre(), preferedGenre)) {
+      if(!strcmp(books[i].getGenre(), preferedGenre)
+        && users[clientId].bookAlreadyRead(books[i].getISBN()) == false) {
           possibleRecommendations[nMatchingBooks++] = books[i];
       }
     }
   }
 
   cout<<"Number of matching books = "<<nMatchingBooks<<endl;
-  int randomBook = rand() % nMatchingBooks;
-  cout<<"Random book ID:"<<randomBook<<endl;
+  if(nMatchingBooks != 0) {
+    int randomBook = rand() % nMatchingBooks;
+    cout<<"Random book ID:"<<randomBook<<endl;
+    respondThread((struct thData*)arg, possibleRecommendations[randomBook].getTitle());
+    respondThread((struct thData*)arg, possibleRecommendations[randomBook].getAuthor());
+    respondThread((struct thData*)arg, possibleRecommendations[randomBook].getISBN());
+    cout<<"\nBOOK_RECOMMENDED\n\n";
+  }
+  else {
+    respondThread((struct thData*)arg, "");
+    respondThread((struct thData*)arg, "");
+    respondThread((struct thData*)arg, "");
+  }
 
-  respondThread((struct thData*)arg, possibleRecommendations[randomBook].getTitle());
-  respondThread((struct thData*)arg, possibleRecommendations[randomBook].getAuthor());
-  respondThread((struct thData*)arg, possibleRecommendations[randomBook].getISBN());
-  cout<<"\nBOOK_RECOMMENDED\n\n";
 }
 
 bool sendBook(int sock, book b) {
@@ -381,32 +404,26 @@ bool sendBook(int sock, book b) {
   char directoryName[MAX_SIZE] = "";
   char fileName[MAX_SIZE] = "";
   strcpy(directoryName, "./Books/");
-  strcat(directoryName, b.getAuthor());
-  strcat(directoryName, "/");
-  strcat(directoryName, b.getTitle());
+  strlcat(directoryName, b.getAuthor(), MAX_SIZE);
+  strlcat(directoryName, "/", MAX_SIZE);
+  strlcat(directoryName, b.getTitle(), MAX_SIZE);
   // strcpy(directoryName, "./Books/Frank_Herbert/Dune"); // testing
   cout<<"DIRECTORY NAME :\""<<directoryName<<"\""<<endl;
 
-  strcpy(fileName, b.getTitle());
-  strcat(fileName, " - ");
-  strcat(fileName, b.getAuthor());
-  strcat(fileName, ".mobi");
+  strlcpy(fileName, b.getTitle(), MAX_SIZE);
+  strlcat(fileName, " - ", MAX_SIZE);
+  strlcat(fileName, b.getAuthor(), MAX_SIZE);
+  strlcat(fileName, ".mobi", MAX_SIZE);
   // strcpy(fileName, "cover.jpg"); // testing
   cout<<"FILE NAME :\""<<fileName<<"\""<<endl;
 
   char filePath[MAX_SIZE] = "";
-  strcpy(filePath, directoryName);
-  strcat(filePath, "/");
-  strcat(filePath, fileName);
+  strlcpy(filePath, directoryName, MAX_SIZE);
+  strlcat(filePath, "/", MAX_SIZE);
+  strlcat(filePath, fileName, MAX_SIZE);
   cout<<"FILE PATH :\""<<filePath<<"\""<<endl;
 
-  
-  
   FILE *bookFile = fopen(filePath, "rb");
-
-  // fseek(bookFile, 0L, SEEK_END);
-  // long FILESIZE = ftell(bookFile);
-  // rewind(bookFile);
 
   // get the filesize of bookFile
   long long FILESIZE = -1;
@@ -414,7 +431,6 @@ bool sendBook(int sock, book b) {
   FILESIZE = ftell(bookFile);
   rewind(bookFile);
   cout<<"FILESIZE : "<<FILESIZE<<endl;
-
 
   if (FILESIZE == EOF)
     return false;
@@ -425,7 +441,6 @@ bool sendBook(int sock, book b) {
   long long nValue = htonl(FILESIZE);
   if (!sendData(sock, &nValue, sizeof(nValue)))
     return false;
-
 
   printf("[server] Sending file of size %lld\n", FILESIZE);
   if (FILESIZE > 0) {
@@ -459,9 +474,9 @@ char *readThread(void *arg) {
 	if (read (tdL.cl, message, MAX_SIZE) <= 0)
   {
     printf("[Thread %d]\n",tdL.idThread);
-    perror ("Eroare la read() de la client.\n");
+    perror ("Read error from client!\n");
   }
-	printf ("[Thread %d]Mesajul a fost receptionat...%s\n",tdL.idThread, message);
+	printf ("[Thread %d]Message received: %s\n",tdL.idThread, message);
   return message;
 }
 
@@ -469,12 +484,12 @@ void respondThread(void *arg, const char message[]) {
 	struct thData tdL; 
 	tdL= *((struct thData*)arg);
 
-	printf("[Thread %d]Trimitem mesajul inapoi...%s\n",tdL.idThread, message);
+	printf("[Thread %d]Sending message: %s\n",tdL.idThread, message);
   /* returnam mesajul clientului */
   if (write (tdL.cl, message, MAX_SIZE) <= 0) {
     printf("[Thread %d] ",tdL.idThread);
-    perror ("[Thread]Eroare la write() catre client.\n");
+    perror ("[Thread] Write error to client\n");
   }
 	else
-		printf ("[Thread %d]Mesajul a fost trasmis cu succes.\n",tdL.idThread);	
+		printf ("[Thread %d] Message sent successfully!\n",tdL.idThread);	
 }
