@@ -26,6 +26,10 @@ The server is made concurrent using threads because this way, the data would be 
 
 ![Picture 1](https://user-images.githubusercontent.com/35728927/213144867-23f47a62-79d8-452c-aaea-403b2516081b.jpg)
 
+## App Architecture
+The client app listens for button inputs from the GUI and when they are pressed, the corresponding command is sent to the Server (for example it sends “login” when the Login button is pressed, followed by the username and password that were written by the user in the corresponding input boxes of the GUI)
+The server receives those commands from the Client and then calls the corresponding functions for each of them. Those functions call helper functions, in order to **create modularity** within the app and also **keep functions concise** and for them to serve only one clear purpose. The book and user related features are implemented as methods of those specific classes (which are declared and implemented in different .cpp and .h files). The server loads an array of type “user” from the XML file with all the user information and their preferences. The user preferences in the array are edited as they use the app more, and before the server closes, it updates the XML file with the new changes from the user array. In this way, the server always has **quick access to the latest user data**, and the data is safe for when the server is offline.
+
 
 ### Treatment of Edge Cases
 
