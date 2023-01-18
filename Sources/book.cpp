@@ -178,7 +178,7 @@ bool book::searchForBook(book &b, book books[], int num_books) {
         }
       }
     }
-    if(longestCommon > 5) { // best match of authors (maybe client spelling error)
+    if(longestCommon > 4) { // best match of authors (maybe client spelling error)
       cout<<"PERFECT TITLE & BEST AUTHOR MATCH"<<endl;
       b.setTitle(books[longestCommonIndex].getTitle());
       b.setAuthor(books[longestCommonIndex].getAuthor());
@@ -201,7 +201,7 @@ bool book::searchForBook(book &b, book books[], int num_books) {
         }
       }
     }
-    if(longestCommon > 5) { // best match of titles (maybe client spelling error)
+    if(longestCommon > 4) { // best match of titles (maybe client spelling error)
       cout<<"PERFECT AUTHOR & BEST TITLE MATCH"<<endl;
       b.setTitle(books[longestCommonIndex].getTitle());
       b.setAuthor(books[longestCommonIndex].getAuthor());
@@ -227,7 +227,7 @@ bool book::searchForBook(book &b, book books[], int num_books) {
         }
       }
     }
-    if(longestCommon > 5) { // best match of authors (maybe client spelling error)
+    if(longestCommon > 4) { // best match of authors (maybe client spelling error)
       cout<<"PERFECT [only] TITLE & BEST AUTHOR MATCH"<<endl;
       b.setTitle(books[longestCommonIndex].getTitle());
       b.setAuthor(books[longestCommonIndex].getAuthor());
@@ -241,6 +241,3 @@ bool book::searchForBook(book &b, book books[], int num_books) {
   cout<<"NO MATCH"<<endl;
   return false;
 }
-
-
-

@@ -66,4 +66,18 @@
 		</read_books>
 	</user>
 
+	<user>
+		<username>testAccount</username>
+		<password>parola</password>
+		<num_genres>0</num_genres>
+		<num_authors>0</num_authors>
+		<num_read_books>0</num_read_books>
+		<prefered_genres>
+		</prefered_genres>
+		<prefered_authors>
+		</prefered_authors>
+		<read_books>
+		</read_books>
+	</user>
+
 </document>

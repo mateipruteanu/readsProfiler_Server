@@ -17,7 +17,6 @@
 #include "../Headers/user.h"
 #include "../Headers/book.h"
 
-//using namespace std;
 
 using std::cout;
 using std::endl;
@@ -81,8 +80,9 @@ void serveClients(int sd, struct sockaddr_in &clientInfo) {
     printf ("[serveClients] Waiting for clients at port %d... \n",PORT);
     fflush (stdout);
 
-    if ( (client = ::accept (sd, (struct sockaddr *) &clientInfo, &length)) < 0) {
-      perror ("[serveClients] Accept() Error.\n");
+    // accepting a connection from a client from the queue
+    if ((client = ::accept (sd, (struct sockaddr *) &clientInfo, &length)) < 0) {
+      perror("[serveClients] Accept() Error.\n");
       continue;
     }
 
@@ -116,7 +116,7 @@ int serverInit(int &sd, struct sockaddr_in &clientInfo) {
     fclose(usersFP);
   }
 
-
+  // loading the books from the xml file
   FILE *booksFP = fopen(BOOK_FILE_PATH, "r");
   book::loadBooksfromXML(booksFP, books, num_books);
 
@@ -144,6 +144,7 @@ int serverInit(int &sd, struct sockaddr_in &clientInfo) {
     return errno;
   }
 
+  // listening for clients, with a queue of maximum 2 clients
   if (listen (sd, 2) == -1) {
     perror ("[serverInit] Listen() Error.\n");
     return errno;
@@ -159,6 +160,7 @@ static void *treatClient(void * arg) {
 		pthread_detach(pthread_self());		
     int clientId = -1;
 
+    //processThread((struct thData*)arg, LOGGED_IN, clientId);
     processThread((struct thData*)arg, LOGGED_IN, clientId);
     
 		/* finished with this client */
@@ -172,7 +174,6 @@ void processThread(void *arg, bool &LOGGED_IN, int &clientId) {
   tdL= *((struct thData*)arg);	
   clientId = -1;
   book b;
-
 
   do {
     receivedMessage[0] = '\0';
@@ -221,7 +222,6 @@ void processThread(void *arg, bool &LOGGED_IN, int &clientId) {
       else if(!strcmp(receivedMessage, "book_recommend")) {
         respondThread((struct thData*)arg, "received");
         recommendBook((struct thData*)arg, clientId);
-
       }
       else if(!strcmp(receivedMessage, "logout")) {
         LOGGED_IN = false;
@@ -229,7 +229,7 @@ void processThread(void *arg, bool &LOGGED_IN, int &clientId) {
         respondThread((struct thData*)arg, "[server]logged_out");
       }
     }
-    else {
+    else { // not logged in
       if(!strcasecmp(receivedMessage, "login")) {
         LOGGED_IN = login((struct thData*)arg, clientId);
       }
@@ -407,14 +407,12 @@ bool sendBook(int sock, book b) {
   strlcat(directoryName, b.getAuthor(), MAX_SIZE);
   strlcat(directoryName, "/", MAX_SIZE);
   strlcat(directoryName, b.getTitle(), MAX_SIZE);
-  // strcpy(directoryName, "./Books/Frank_Herbert/Dune"); // testing
   cout<<"DIRECTORY NAME :\""<<directoryName<<"\""<<endl;
 
   strlcpy(fileName, b.getTitle(), MAX_SIZE);
   strlcat(fileName, " - ", MAX_SIZE);
   strlcat(fileName, b.getAuthor(), MAX_SIZE);
   strlcat(fileName, ".mobi", MAX_SIZE);
-  // strcpy(fileName, "cover.jpg"); // testing
   cout<<"FILE NAME :\""<<fileName<<"\""<<endl;
 
   char filePath[MAX_SIZE] = "";
@@ -428,18 +426,15 @@ bool sendBook(int sock, book b) {
   // get the filesize of bookFile
   long long FILESIZE = -1;
   fseek(bookFile, 0, SEEK_END);
-  FILESIZE = ftell(bookFile);
+  FILESIZE = ftell(bookFile); // get the filesize of the book
   rewind(bookFile);
   cout<<"FILESIZE : "<<FILESIZE<<endl;
 
   if (FILESIZE == EOF)
     return false;
 
-  // Books/Frank Herbert/Dune/Dune - Frank Herbert.mobi
-  //../Books/Frank Herbert/Dune/Dune - Frank Herbert.mobi
-
   long long nValue = htonl(FILESIZE);
-  if (!sendData(sock, &nValue, sizeof(nValue)))
+  if (!sendData(sock, &nValue, sizeof(nValue))) // sending the filesize to the client
     return false;
 
   printf("[server] Sending file of size %lld\n", FILESIZE);
